@@ -8,15 +8,24 @@ import android.view.WindowManager;
 /**
  * This is main function of 'Agar' project.
  **/
-public class main extends Activity {
+
+/* Main agar preject class */
+public class main extends Activity
+{
+    /* Global base */
+    base Base;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+
+        Base = new base(this);
+        setContentView(Base.AgarSurface);
     }
 
     @Override
@@ -25,4 +34,17 @@ public class main extends Activity {
         super.onPostCreate(savedInstanceState);
     }
 
-}
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Base.onResume();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        Base.onPause();
+    }
+} /* End of 'main' class */
