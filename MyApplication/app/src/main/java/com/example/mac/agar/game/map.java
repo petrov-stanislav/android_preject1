@@ -1,4 +1,6 @@
-package com.example.mac.agar;
+package com.example.mac.agar.game;
+
+import com.example.mac.agar.vec2;
 
 import java.util.Vector;
 
@@ -13,14 +15,14 @@ public class map
     public class food
     {
         /* Coordinats of food */
-        m.vec2 Coord = new m().new vec2(0, 0);
+        vec2 Coord = new vec2();
 
         /* Food class constructor
          * ARGUMENTS:
          *   - New coordinats of food.
          *       m.vec2 NewXY;
          */
-        food( m.vec2 NewXY )
+        food( vec2 NewXY )
         {
             Coord = NewXY;
         } /* End of 'food' function */
@@ -30,8 +32,8 @@ public class map
          */
         food()
         {
-            Coord.X = Math.random();
-            Coord.Y = Math.random();
+            Coord.X = (float)Math.random();
+            Coord.Y = (float)Math.random();
         } /* End of 'food' function */
 
         /* Set new random coordinates of food function
@@ -40,8 +42,8 @@ public class map
          */
         void SetNewCoord()
         {
-            Coord.X = Math.random();
-            Coord.Y = Math.random();
+            Coord.X = (float)Math.random();
+            Coord.Y = (float)Math.random();
         } /* End of 'SetNewCoord' function */
     } /* End of 'food' class */
 

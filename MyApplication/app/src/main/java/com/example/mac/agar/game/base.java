@@ -1,10 +1,14 @@
-package com.example.mac.agar;
+package com.example.mac.agar.game;
 
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
+
+import com.example.mac.agar.map;
+import com.example.mac.agar.player;
+import com.example.mac.agar.render.drawable;
 
 /**
  * Created by mac on 13.08.15.
@@ -44,7 +48,7 @@ public class base
             AgarSurface.setEGLContextClientVersion(2);
 
             // Устанавливаем рендеринг, создаем экземпляр класса, он будет описан ниже.
-            AgarSurface.setRenderer(new drawable());
+            AgarSurface.setRenderer(new drawable(MainActivity));
         }
         else
         {

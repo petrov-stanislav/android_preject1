@@ -1,4 +1,4 @@
-package com.example.mac.agar;
+package com.example.mac.agar.render;
 
 import android.opengl.GLES20;
 
@@ -15,10 +15,19 @@ public class shader
         Shd = newShader;
     }
 
-    void Load()
+    enum SHD_TYPE
     {
-        // Загрузка вершинного шейдера.
-        Handle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
+        VERTEX,
+        PIXEL
+    }
+
+    void Load( SHD_TYPE ShdType )
+    {
+        // Загрузка шейдера.
+        if (ShdType == SHD_TYPE.VERTEX)
+            Handle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
+        else if (ShdType == SHD_TYPE.PIXEL)
+            Handle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
 
         if (Handle != 0)
         {
@@ -42,7 +51,7 @@ public class shader
 
         if (Handle == 0)
         {
-            throw new RuntimeException("Error creating vertex shader.");
+            throw new RuntimeException("Error creating shader.");
         }
     }
 
