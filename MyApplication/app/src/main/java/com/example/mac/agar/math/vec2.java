@@ -5,16 +5,16 @@ package com.example.mac.agar.math;
  */
 
 /* 2 floats class */
-class vec2
+public class vec2
 {
-    float X, Y;
+    public float X, Y;
 
     /* vec2 class constructor
      * ARGUMENTS:
      *   - New coords:
      *       float NewX, NewY;
      */
-    vec2( float NewX, float NewY )
+    public vec2( float NewX, float NewY )
     {
         X = NewX;
         Y = NewY;
@@ -23,7 +23,7 @@ class vec2
     /* vec2 class constructor
      * ARGUMENTS: None.
      */
-    vec2()
+    public vec2()
     {
         X = 0;
         Y = 0;

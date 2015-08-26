@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.mac.agar.game.base;
+
 /**
  * This is main function of 'Agar' project.
  **/
@@ -23,7 +25,6 @@ public class main extends Activity
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         Base = new base(this);
         setContentView(Base.AgarSurface);
     }

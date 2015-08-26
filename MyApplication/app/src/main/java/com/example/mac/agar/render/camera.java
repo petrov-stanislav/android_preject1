@@ -2,7 +2,7 @@ package com.example.mac.agar.render;
 
 import android.opengl.Matrix;
 
-import com.example.mac.agar.vec3;
+import com.example.mac.agar.math.vec3;
 
 /**
  * Created by mac on 23.08.15.

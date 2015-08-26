@@ -3,16 +3,16 @@ package com.example.mac.agar.math;
 /**
  * Created by mac on 23.08.15.
  */ /* 3 floats class */
-class vec3
+public class vec3
 {
-    float X, Y, Z;
+    public float X, Y, Z;
 
     /* vec3 class constructor
      * ARGUMENTS:
      *   - New coords:
      *       float NewX, NewY, NewZ;
      */
-    vec3( float NewX, float NewY, float NewZ )
+    public vec3( float NewX, float NewY, float NewZ )
     {
         X = NewX;
         Y = NewY;
@@ -22,7 +22,7 @@ class vec3
     /* vec3 class constructor
      * ARGUMENTS: None.
      */
-    vec3()
+    public vec3()
     {
         X = 0;
         Y = 0;

@@ -7,70 +7,95 @@ import android.opengl.GLES20;
  */
 public class shader
 {
-    int Handle;
-    final String Shd;
+    int vHandle, pHandle;
+    final String vShd, pShd;
 
-    shader( String newShader )
+    public int programHandle;
+
+    public shader(String newVertShader, String newPixShader)
     {
-        Shd = newShader;
+        vShd = newVertShader;
+        pShd = newPixShader;
+
+        Load();
     }
 
-    enum SHD_TYPE
-    {
-        VERTEX,
-        PIXEL
-    }
-
-    void Load( SHD_TYPE ShdType )
+    void Load()
     {
         // Загрузка шейдера.
-        if (ShdType == SHD_TYPE.VERTEX)
-            Handle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
-        else if (ShdType == SHD_TYPE.PIXEL)
-            Handle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
+        vHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
+        pHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
 
-        if (Handle != 0)
+        if (vHandle != 0)
         {
             // Передаем в наш шейдер программу.
-            GLES20.glShaderSource(Handle, Shd);
+            GLES20.glShaderSource(vHandle, vShd);
 
             // Компиляция шейреда
-            GLES20.glCompileShader(Handle);
+            GLES20.glCompileShader(vHandle);
 
             // Получаем результат процесса компиляции
             final int[] compileStatus = new int[1];
-            GLES20.glGetShaderiv(Handle, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
+            GLES20.glGetShaderiv(vHandle, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
 
             // Если компиляция не удалась, удаляем шейдер.
             if (compileStatus[0] == 0)
             {
-                GLES20.glDeleteShader(Handle);
-                Handle = 0;
+                GLES20.glDeleteShader(vHandle);
+                vHandle = 0;
             }
         }
 
-        if (Handle == 0)
+        if (vHandle == 0)
         {
             throw new RuntimeException("Error creating shader.");
         }
+
+        if (pHandle != 0)
+        {
+            // Передаем в наш шейдер программу.
+            GLES20.glShaderSource(pHandle, pShd);
+
+            // Компиляция шейреда
+            GLES20.glCompileShader(pHandle);
+
+            // Получаем результат процесса компиляции
+            final int[] compileStatus = new int[1];
+            GLES20.glGetShaderiv(pHandle, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
+
+            // Если компиляция не удалась, удаляем шейдер.
+            if (compileStatus[0] == 0)
+            {
+                GLES20.glDeleteShader(pHandle);
+                pHandle = 0;
+            }
+        }
+
+        if (pHandle == 0)
+        {
+            throw new RuntimeException("Error creating shader.");
+        }
+
+        Union();
     }
 
-    static int Union( shader vShader, shader fShader )
+    void Union()
     {
         // Создаем объект программы вместе со ссылкой на нее.
-        int programHandle = GLES20.glCreateProgram();
+        programHandle = GLES20.glCreateProgram();
 
         if (programHandle != 0)
         {
             // Подключаем вершинный шейдер к программе.
-            GLES20.glAttachShader(programHandle, vShader.Handle);
+            GLES20.glAttachShader(programHandle, vHandle);
 
             // Подключаем фрагментный шейдер к программе.
-            GLES20.glAttachShader(programHandle, fShader.Handle);
+            GLES20.glAttachShader(programHandle, pHandle);
 
             // Подключаем атрибуты цвета и положения
             GLES20.glBindAttribLocation(programHandle, 0, "a_Position");
             GLES20.glBindAttribLocation(programHandle, 1, "a_Color");
+            GLES20.glBindAttribLocation(programHandle, 2, "a_TexCoord");
 
             // Объединяем оба шейдера в программе.
             GLES20.glLinkProgram(programHandle);
@@ -91,7 +116,5 @@ public class shader
         {
             throw new RuntimeException("Error creating program.");
         }
-
-        return programHandle;
     }
 }

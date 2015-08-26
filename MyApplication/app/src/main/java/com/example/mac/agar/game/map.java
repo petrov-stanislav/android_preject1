@@ -1,6 +1,6 @@
 package com.example.mac.agar.game;
 
-import com.example.mac.agar.vec2;
+import com.example.mac.agar.math.vec2;
 
 import java.util.Vector;
 

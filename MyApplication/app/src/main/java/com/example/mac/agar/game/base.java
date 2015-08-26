@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 
-import com.example.mac.agar.map;
-import com.example.mac.agar.player;
 import com.example.mac.agar.render.drawable;
 
 /**
@@ -33,7 +31,7 @@ public class base
      *   - Drawable activity:
      *       Activity MainActivity;
      */
-    base( Activity MainActivity )
+    public base( Activity MainActivity )
     {
         AgarSurface = new GLSurfaceView(MainActivity);
 
