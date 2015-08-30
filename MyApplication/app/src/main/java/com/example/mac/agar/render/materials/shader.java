@@ -1,4 +1,4 @@
-package com.example.mac.agar.render;
+package com.example.mac.agar.render.materials;
 
 import android.opengl.GLES20;
 

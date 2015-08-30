@@ -8,6 +8,7 @@ import android.os.SystemClock;
 
 import com.example.mac.agar.game.player;
 import com.example.mac.agar.math.vec3;
+import com.example.mac.agar.render.materials.material;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -20,6 +21,8 @@ public class drawable implements GLSurfaceView.Renderer
 {
     Context programContext;
     player Player;
+    public material Mtl;
+
     public camera Camera;
 
     public  float GlobalTime;
@@ -38,6 +41,7 @@ public class drawable implements GLSurfaceView.Renderer
     public void onSurfaceCreated(GL10 glUnused, EGLConfig config)
     {
         Player = new player(programContext);
+        Mtl = new material(programContext);
 
         // Устанавливаем цвет фона светло серый.
         GLES20.glClearColor(0.3f, 0.5f, 0.7f, 0.5f);

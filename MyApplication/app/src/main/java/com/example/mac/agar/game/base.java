@@ -15,16 +15,8 @@ import com.example.mac.agar.render.drawable;
 /* Base animation class of 'agar' preject. */
 public class base
 {
-    final int MAX_FOOD = 1000;
-
     /* Drawable surface */
     public GLSurfaceView AgarSurface;
-
-    /* Global map of preject */
-    map Map = new map(MAX_FOOD);
-
-    /* It is you :) */
-    player Player;
 
     /* Main base class constructor.
      * ARGUMENTS:
@@ -75,20 +67,4 @@ public class base
     {
         AgarSurface.onPause();
     } /* End of 'onPause' function */
-
-    /* Main update function.
-     * ARGUMENTS: None.
-     * RETURNS: None.
-     */
-    public void Update()
-    {
-    } /* End of 'Update' function */
-
-    /* Main draw function.
-     * ARGUMENTS: None.
-     * RETURNS: None.
-     */
-    public void Draw()
-    {
-    } /* End of 'Draw' function */
 } /* End of 'base' class */

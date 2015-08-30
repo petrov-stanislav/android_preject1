@@ -1,14 +1,11 @@
 package com.example.mac.agar.render.primitives;
 
-import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 
-import com.example.mac.agar.R;
 import com.example.mac.agar.math.vec3;
 import com.example.mac.agar.render.drawable;
-import com.example.mac.agar.render.shader;
-import com.example.mac.agar.render.texture;
+import com.example.mac.agar.render.materials.material;
 import com.example.mac.agar.render.vertex_info;
 
 import java.nio.FloatBuffer;
@@ -25,16 +22,15 @@ public class primitive
     public float[] mModelMatrix = new float[16];
     protected FloatBuffer VertexBuffer;
 
-    texture Txt;
-    shader Shd;
+    int progH, mMVPMatrixHandle, mPositionHandle, mColorHandle, mTexHandle;
 
-    public primitive( Context context )
+    material.SHD Shd;
+    material.TXT Txt;
+
+    public primitive( material.SHD shader, material.TXT texture )
     {
-        Txt = new texture();
-        Txt.Load(context, R.mipmap.smile);
-
-        Shd = new shader(context.getString(R.string.vertex_def),
-                         context.getString(R.string.pixel_def));
+        Shd = shader;
+        Txt = texture;
     }
 
     public primitive FreeMatix()
@@ -63,13 +59,19 @@ public class primitive
 
     public void Draw( drawable Rnd )
     {
-        GLES20.glUseProgram(Shd.programHandle);
+        if (Rnd.Mtl.prevShd != Shd)
+        {
+            progH = Rnd.Mtl.Shd[material.toInt(Shd)].programHandle;
+            GLES20.glUseProgram(progH);
+            // Установить настройки вручную. Это будет позже использовано для передачи значений в программу.
+            mMVPMatrixHandle = GLES20.glGetUniformLocation(progH, "u_MVPMatrix");
+            mPositionHandle = GLES20.glGetAttribLocation(progH, "a_Position");
+            mColorHandle = GLES20.glGetAttribLocation(progH, "a_Color");
+            mTexHandle = GLES20.glGetAttribLocation(progH, "a_TexCoord");
 
-        // Установить настройки вручную. Это будет позже использовано для передачи значений в программу.
-        int mMVPMatrixHandle = GLES20.glGetUniformLocation(Shd.programHandle, "u_MVPMatrix");
-        int mPositionHandle = GLES20.glGetAttribLocation(Shd.programHandle, "a_Position");
-        int mColorHandle = GLES20.glGetAttribLocation(Shd.programHandle, "a_Color");
-        int mTexHandle = GLES20.glGetAttribLocation(Shd.programHandle, "a_TexCoord");
+        }
+        if (Rnd.Mtl.prevTxt != Txt)
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, Rnd.Mtl.Txt[material.toInt(Txt)].textureHandle[0]);
 
         // Передаем значения о расположении.
         VertexBuffer.position(vertex_info.mPositionOffset);

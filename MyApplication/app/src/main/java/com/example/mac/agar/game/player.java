@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.mac.agar.math.vec3;
 import com.example.mac.agar.render.drawable;
+import com.example.mac.agar.render.materials.material;
 import com.example.mac.agar.render.primitives.plane;
 
 /**
@@ -14,9 +15,9 @@ public class player {
 
     public player( Context context )
     {
-        Plane1 = new plane(context);
-        Plane2 = new plane(context);
-        Plane3 = new plane(context);
+        Plane1 = new plane(context, material.SHD.DEFAULT, material.TXT.SMILE);
+        Plane2 = new plane(context, material.SHD.DEFAULT, material.TXT.YOBA1);
+        Plane3 = new plane(context, material.SHD.DEFAULT, material.TXT.YOBA1);
     }
 
     public void Update( drawable Rnd )
